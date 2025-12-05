@@ -1,6 +1,6 @@
-<p align="center">
+<div align="center">
   <img src="images/logo.svg" alt="Logo" width="800">
-</p>
+</div>
 
 # Vivado Waveform Extractor
 

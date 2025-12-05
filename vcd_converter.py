@@ -374,7 +374,10 @@ class ConverterGUI:
         default_vcd = VCD_INPUT_DIR / "waveform.vcd"
         if default_vcd.exists():
             self.vcd_file.set(str(default_vcd))
-            self.update_output_ext()
+            # Set default output path in converted_output folder
+            ext = {'csv': '.csv', 'json': '.json', 'excel': '.xlsx'}[self.format_var.get()]
+            out_path = get_output_path("waveform" + ext)
+            self.output_file.set(str(out_path))
     
     def build_ui(self):
         # Configure style
