@@ -1,4 +1,4 @@
-<img src="images/logo.svg" alt="Logo" width="400">
+<img src="images/logo.svg" alt="Logo">
 
 # Vivado Waveform Extractor
 
