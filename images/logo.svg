@@ -23,8 +23,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="2.8284271"
-     inkscape:cx="271.52901"
-     inkscape:cy="40.12831"
+     inkscape:cx="218.14244"
+     inkscape:cy="29.875262"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
      inkscape:window-x="-11"
@@ -33,14 +33,14 @@
      inkscape:current-layer="svg5" />
   <!-- Background -->
   <rect
-     width="375.68884"
+     width="374.18884"
      height="71.88604"
      fill="#1a1a2e"
-     rx="7.5137768"
+     rx="7.4837766"
      id="rect1"
-     x="3.452436"
+     x="1.452436"
      y="4.4467015"
-     style="stroke-width:0.918682" />
+     style="stroke-width:0.916846" />
   <!-- Waveform -->
   <g
      stroke="#00d4ff"
@@ -74,7 +74,7 @@
      stroke-width="2"
      fill="none"
      id="g4"
-     transform="matrix(1.2119138,0,0,1.2119138,-62.238278,-8.0868339)">
+     transform="matrix(0.99971011,0,0,1.0662888,-10.755778,-2.0743347)">
     <rect
        x="245"
        y="15"
@@ -109,7 +109,7 @@
   </g>
   <!-- Text -->
   <text
-     x="313.45502"
+     x="305.45502"
      y="34.330151"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="16.9669px"
@@ -118,7 +118,7 @@
      id="text4"
      style="stroke-width:1.2119">VCD</text>
   <text
-     x="313.45502"
+     x="305.45502"
      y="54.932686"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="13.331px"
