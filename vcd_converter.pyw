@@ -15,7 +15,9 @@ Options:
     --json     Output as JSON
     --excel    Output as Excel (.xlsx)
     --hex      Values in hex (default)
-    --int      Values as integers
+    --int      Values as unsigned integers
+    --signed   Values as signed (two's complement)
+    --smag     Values as signed magnitude
     --bin      Values in binary
     --us       Time in microseconds (default)
     --ns       Time in nanoseconds
@@ -127,15 +129,54 @@ def build_timeline(signals, changes):
 # Value Formatting
 # ============================================================
 
-def format_value(binary_str, fmt='hex'):
-    """Format binary string to hex/int/bin."""
+def format_value(binary_str, fmt='hex', width=None):
+    """
+    Format binary string to various formats.
+    
+    Formats:
+        hex     - Hexadecimal (unsigned)
+        int     - Unsigned integer
+        signed  - Signed two's complement
+        smag    - Signed magnitude (MSB is sign bit)
+        bin     - Binary string
+    """
     if fmt == 'bin':
         return binary_str
+    
+    # Handle unknown/high-z values
+    if 'x' in binary_str.lower() or 'z' in binary_str.lower():
+        return binary_str
+    
     try:
-        val = int(binary_str, 2)
+        bits = len(binary_str)
+        unsigned_val = int(binary_str, 2)
+        
         if fmt == 'hex':
-            return format(val, 'X')
-        return str(val)
+            return format(unsigned_val, 'X')
+        
+        elif fmt == 'int':
+            # Unsigned integer
+            return str(unsigned_val)
+        
+        elif fmt == 'signed':
+            # Two's complement signed
+            if binary_str[0] == '1':  # Negative (MSB is 1)
+                signed_val = unsigned_val - (1 << bits)
+            else:
+                signed_val = unsigned_val
+            return str(signed_val)
+        
+        elif fmt == 'smag':
+            # Signed magnitude (MSB is sign, rest is magnitude)
+            if bits == 1:
+                return str(unsigned_val)  # Single bit, no sign
+            sign = binary_str[0]
+            magnitude = int(binary_str[1:], 2) if len(binary_str) > 1 else 0
+            if sign == '1':
+                return str(-magnitude)
+            return str(magnitude)
+        
+        return str(unsigned_val)
     except ValueError:
         return binary_str
 
@@ -204,12 +245,20 @@ def export_json(signals, rows, output_file, metadata, time_unit='us', value_fmt=
 
 
 def export_excel(signals, rows, output_file, time_unit='us', value_fmt='hex'):
-    """Export to Excel format. Requires openpyxl: pip install openpyxl"""
+    """Export to Excel format. Auto-installs openpyxl if needed."""
     
     try:
         import openpyxl  # type: ignore
     except ImportError:
-        raise ImportError("openpyxl not installed. Run: pip install openpyxl")
+        # Auto-install openpyxl
+        print("openpyxl not found. Installing automatically...")
+        import subprocess
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "openpyxl", "-q"])
+            import openpyxl  # type: ignore
+            print("openpyxl installed successfully!")
+        except Exception as e:
+            raise ImportError(f"Failed to install openpyxl: {e}\nPlease run: pip install openpyxl")
     
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -332,7 +381,9 @@ class ConverterGUI:
         val_frame.grid(row=row, column=1, sticky="w", pady=8)
         
         ttk.Radiobutton(val_frame, text="Hex", variable=self.value_fmt, value='hex').pack(side="left")
-        ttk.Radiobutton(val_frame, text="Integer", variable=self.value_fmt, value='int').pack(side="left", padx=15)
+        ttk.Radiobutton(val_frame, text="Unsigned", variable=self.value_fmt, value='int').pack(side="left", padx=10)
+        ttk.Radiobutton(val_frame, text="Signed", variable=self.value_fmt, value='signed').pack(side="left", padx=10)
+        ttk.Radiobutton(val_frame, text="Sign-Mag", variable=self.value_fmt, value='smag').pack(side="left", padx=10)
         ttk.Radiobutton(val_frame, text="Binary", variable=self.value_fmt, value='bin').pack(side="left")
         
         row += 1
@@ -482,8 +533,14 @@ def cli_convert(args):
         elif arg == '--hex':
             value_fmt = 'hex'
             i += 1
-        elif arg == '--int':
+        elif arg == '--int' or arg == '--unsigned':
             value_fmt = 'int'
+            i += 1
+        elif arg == '--signed':
+            value_fmt = 'signed'
+            i += 1
+        elif arg == '--smag':
+            value_fmt = 'smag'
             i += 1
         elif arg == '--bin':
             value_fmt = 'bin'

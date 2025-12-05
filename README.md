@@ -2,6 +2,8 @@
 
 Extract simulation waveform data from Xilinx Vivado XSim to VCD, CSV, JSON, or Excel formats.
 
+![VCD Converter GUI](images/gui_screenshot.png)
+
 ## Quick Start
 To generate the VCD, In Vivado : `Tools` → `Run Tcl Script` → `select extract_waveform.tcl` (while the simulation window is open) 
 ```tcl
@@ -18,7 +20,7 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 **Tcl Script:** Xilinx Vivado 2020.x+ with active XSim simulation
 
-**Python Converter:** Python 3.6+ (tkinter included). Optional: `pip install openpyxl` for Excel export.
+**Python Converter:** Python 3.6+ (tkinter included). Excel export auto-installs `openpyxl` on first use.
 
 ## Project Structure
 
@@ -49,14 +51,18 @@ python vcd_converter.py waveform.vcd --json  # CLI
 ### Python CLI
 
 ```
-python vcd_converter.py <input.vcd> [-o output] [--csv|--json|--excel] [--hex|--int|--bin] [--us|--ns|--ps]
+python vcd_converter.py <input.vcd> [-o output] [--csv|--json|--excel] [--hex|--int|--signed|--smag|--bin] [--us|--ns|--ps]
 ```
 
 | Option | Description |
 |--------|-------------|
 | `-o <file>` | Output path |
 | `--csv/--json/--excel` | Output format (default: csv) |
-| `--hex/--int/--bin` | Value format (default: hex) |
+| `--hex` | Values as hexadecimal (default) |
+| `--int` | Values as unsigned integers |
+| `--signed` | Values as signed two's complement |
+| `--smag` | Values as signed magnitude |
+| `--bin` | Values as binary strings |
 | `--us/--ns/--ps` | Time unit (default: us) |
 
 ---
