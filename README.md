@@ -1,6 +1,6 @@
-<img src="images/logo.svg" alt="Logo">
-
 # Vivado Waveform Extractor
+
+<img src="images/logo.svg" alt="Logo">
 
 Extract simulation waveform data from Xilinx Vivado XSim to VCD, CSV, JSON, or Excel formats.
 
