@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 376 67"
+   viewBox="0 0 384.25 60"
    version="1.1"
    id="svg5"
    sodipodi:docname="logo.svg"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
-   width="376"
-   height="67"
+   width="384.25"
+   height="60"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +22,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="2"
-     inkscape:cx="107"
-     inkscape:cy="-8.2500001"
+     inkscape:zoom="22.627417"
+     inkscape:cx="392.79782"
+     inkscape:cy="12.175495"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
      inkscape:window-x="-11"
@@ -33,14 +33,14 @@
      inkscape:current-layer="svg5" />
   <!-- Background -->
   <rect
-     width="374.18884"
-     height="66.229187"
+     width="383.18884"
+     height="59.865227"
      fill="#1a1a2e"
-     rx="7.4837766"
+     rx="7.6637764"
      id="rect1"
-     x="1.7442745"
-     y="0.32740489"
-     style="stroke-width:0.880033" />
+     x="0.99584484"
+     y="0.087359309"
+     style="stroke-width:0.846686" />
   <!-- Waveform -->
   <g
      stroke="#00d4ff"
@@ -48,7 +48,7 @@
      fill="none"
      stroke-linecap="square"
      id="g1"
-     transform="matrix(1.2119138,0,0,1.1165459,-9.7081614,-11.219842)">
+     transform="matrix(1.2119138,0,0,1.1165459,-9.9565909,-14.641868)">
     <!-- Digital waveform pattern -->
     <path
        d="M 30,55 V 25 H 44 V 55 H 55.39887 V 25 H 81.398871 V 55 H 94.098306 V 25 h 13.049154 v 30 h 15.04915 V 25 h 15.30056 v 30 h 11.65029"
@@ -61,7 +61,7 @@
      stroke="#ff6b6b"
      stroke-width="2"
      id="g2"
-     transform="matrix(1.0099282,0,0,0.93045496,-21.751294,-1.765789)">
+     transform="matrix(1.0099282,0,0,0.93045496,-11.999723,-5.1878151)">
     <path
        d="m 200,40 h 30 m -8,-8 10,8 -10,8"
        stroke-linecap="round"
@@ -74,7 +74,7 @@
      stroke-width="2"
      fill="none"
      id="g4"
-     transform="matrix(0.99971011,0,0,0.98238043,-10.463938,-5.6804782)">
+     transform="matrix(0.99971011,0,0,0.98238043,1.2876325,-9.1025043)">
     <rect
        x="245"
        y="15"
@@ -109,8 +109,8 @@
   </g>
   <!-- Text -->
   <text
-     x="305.74689"
-     y="27.382427"
+     x="317.49847"
+     y="27.960402"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="16.9669px"
      font-weight="bold"
@@ -118,8 +118,8 @@
      id="text4"
      style="stroke-width:1.2119">VCD</text>
   <text
-     x="305.74689"
-     y="47.984962"
+     x="317.49847"
+     y="44.562939"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="13.331px"
      fill="#888888"
@@ -127,20 +127,20 @@
      style="stroke-width:1.2119">Extractor</text>
   <!-- Vivado accent bar -->
   <rect
-     x="0.29183859"
-     y="0.32740489"
+     x="0.04340896"
+     y="-0.53135908"
      width="7.2714829"
-     height="66.229187"
+     height="60.837498"
      fill="#ff6b6b"
      rx="3.6357415"
      ry="0"
      id="rect5"
-     style="stroke-width:1.00166" />
+     style="stroke-width:0.960022" />
   <rect
      style="fill:#ff6b6b;stroke-width:0.963687"
      id="rect3"
      width="1.1158235"
      height="15.03656"
-     x="201.44496"
-     y="27.923347" />
+     x="211.19652"
+     y="24.501322" />
 </svg>
