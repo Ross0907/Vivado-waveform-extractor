@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 425 80"
+   viewBox="0 0 376 72"
    version="1.1"
    id="svg5"
    sodipodi:docname="logo.svg"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
-   width="425"
-   height="80"
+   width="376"
+   height="72"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +22,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="218.14244"
-     inkscape:cy="29.875262"
+     inkscape:zoom="0.99999999"
+     inkscape:cx="-464"
+     inkscape:cy="190.5"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
      inkscape:window-x="-11"
@@ -38,8 +38,8 @@
      fill="#1a1a2e"
      rx="7.4837766"
      id="rect1"
-     x="1.452436"
-     y="4.4467015"
+     x="1.6558862"
+     y="0.073501885"
      style="stroke-width:0.916846" />
   <!-- Waveform -->
   <g
@@ -48,7 +48,7 @@
      fill="none"
      stroke-linecap="square"
      id="g1"
-     transform="matrix(1.2119138,0,0,1.2119138,-10,-8.0868339)">
+     transform="matrix(1.2119138,0,0,1.2119138,-9.7965498,-12.460034)">
     <!-- Digital waveform pattern -->
     <path
        d="M 30,55 V 25 H 44 V 55 H 55.39887 V 25 H 81.398871 V 55 H 94.098306 V 25 h 13.049154 v 30 h 15.04915 V 25 h 15.30056 v 30 h 11.65029"
@@ -61,7 +61,7 @@
      stroke="#ff6b6b"
      stroke-width="2"
      id="g2"
-     transform="matrix(1.0099282,0,0,1.0099282,-22.043134,2.1747211)">
+     transform="matrix(1.0099282,0,0,1.0099282,-21.839683,-2.1984785)">
     <path
        d="m 200,40 h 30 m -8,-8 10,8 -10,8"
        stroke-linecap="round"
@@ -74,7 +74,7 @@
      stroke-width="2"
      fill="none"
      id="g4"
-     transform="matrix(0.99971011,0,0,1.0662888,-10.755778,-2.0743347)">
+     transform="matrix(0.99971011,0,0,1.0662888,-10.552327,-6.4475343)">
     <rect
        x="245"
        y="15"
@@ -109,8 +109,8 @@
   </g>
   <!-- Text -->
   <text
-     x="305.45502"
-     y="34.330151"
+     x="305.65848"
+     y="29.956951"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="16.9669px"
      font-weight="bold"
@@ -118,8 +118,8 @@
      id="text4"
      style="stroke-width:1.2119">VCD</text>
   <text
-     x="305.45502"
-     y="54.932686"
+     x="305.65848"
+     y="50.559486"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="13.331px"
      fill="#888888"
@@ -127,8 +127,8 @@
      style="stroke-width:1.2119">Extractor</text>
   <!-- Vivado accent bar -->
   <rect
-     x="0"
-     y="4.4467015"
+     x="0.20345023"
+     y="0.073501885"
      width="7.2714829"
      height="71.88604"
      fill="#ff6b6b"
@@ -141,6 +141,6 @@
      id="rect3"
      width="1.1158235"
      height="16.320883"
-     x="201.15314"
-     y="34.399704" />
+     x="201.35658"
+     y="30.026505" />
 </svg>
