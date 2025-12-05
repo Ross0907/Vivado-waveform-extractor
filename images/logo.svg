@@ -23,8 +23,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="2.8284271"
-     inkscape:cx="287.79246"
-     inkscape:cy="-29.875262"
+     inkscape:cx="207.18229"
+     inkscape:cy="-33.764349"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
      inkscape:window-x="-11"
@@ -33,14 +33,14 @@
      inkscape:current-layer="svg5" />
   <!-- Background -->
   <rect
-     width="423.06497"
-     height="78.957108"
+     width="404.68021"
+     height="71.88604"
      fill="#1a1a2e"
-     rx="8.4612999"
+     rx="8.0936041"
      id="rect1"
-     x="1.7643579"
-     y="0.9111678"
-     style="stroke-width:1.02171" />
+     x="0.95674664"
+     y="4.4467015"
+     style="stroke-width:0.95347" />
   <!-- Waveform -->
   <g
      stroke="#00d4ff"
@@ -48,7 +48,7 @@
      fill="none"
      stroke-linecap="square"
      id="g1"
-     transform="matrix(1.2119138,0,0,1.2119138,0,-8.0868339)">
+     transform="matrix(1.2119138,0,0,1.2119138,-10,-8.0868339)">
     <!-- Digital waveform pattern -->
     <path
        d="M 30,55 V 25 H 44 V 55 H 62 V 25 h 26 v 30 h 16 V 25 h 18 v 30 h 20 V 25 h 12 v 30 h 10"
@@ -61,7 +61,7 @@
      stroke="#ff6b6b"
      stroke-width="2"
      id="g2"
-     transform="matrix(1.0099282,0,0,1.0099282,15.956866,-1.8252789)">
+     transform="matrix(1.0099282,0,0,1.0099282,1.956866,0.1747211)">
     <path
        d="m 200,40 h 30 m -8,-8 10,8 -10,8"
        stroke-linecap="round"
@@ -74,7 +74,7 @@
      stroke-width="2"
      fill="none"
      id="g4"
-     transform="matrix(1.2119138,0,0,1.2119138,-24.238278,-8.0868339)">
+     transform="matrix(1.2119138,0,0,1.2119138,-38.238278,-8.0868339)">
     <rect
        x="245"
        y="15"
@@ -109,7 +109,7 @@
   </g>
   <!-- Text -->
   <text
-     x="351.45502"
+     x="337.45502"
      y="34.330151"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="16.9669px"
@@ -118,7 +118,7 @@
      id="text4"
      style="stroke-width:1.2119">VCD</text>
   <text
-     x="351.45502"
+     x="337.45502"
      y="54.932686"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="13.331px"
@@ -128,19 +128,19 @@
   <!-- Vivado accent bar -->
   <rect
      x="0"
-     y="0.9111678"
+     y="4.4467015"
      width="7.2714829"
-     height="78.957108"
+     height="71.88604"
      fill="#ff6b6b"
      rx="3.6357415"
      ry="0"
      id="rect5"
-     style="stroke-width:1.09368" />
+     style="stroke-width:1.04356" />
   <rect
      style="fill:#ff6b6b;stroke-width:1.004"
      id="rect3"
      width="1.1158235"
      height="16.320883"
-     x="239.15314"
-     y="30.399706" />
+     x="225.15314"
+     y="32.399704" />
 </svg>
