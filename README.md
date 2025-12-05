@@ -25,7 +25,8 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 ```
 ├── extract_waveform.tcl    # Tcl script for Vivado XSim
-├── vcd_converter.py        # Python converter (GUI + CLI)
+├── vcd_converter.py        # Python converter (CLI + GUI)
+├── vcd_converter.pyw       # GUI only (double-click, no console window)
 ├── vcd_output/             # VCD files (auto-created)
 └── converted_output/       # CSV/JSON/Excel (auto-created)
 ```
