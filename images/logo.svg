@@ -23,8 +23,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="2.8284271"
-     inkscape:cx="207.18229"
-     inkscape:cy="-33.764349"
+     inkscape:cx="271.52901"
+     inkscape:cy="40.12831"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
      inkscape:window-x="-11"
@@ -33,14 +33,14 @@
      inkscape:current-layer="svg5" />
   <!-- Background -->
   <rect
-     width="404.68021"
+     width="375.68884"
      height="71.88604"
      fill="#1a1a2e"
-     rx="8.0936041"
+     rx="7.5137768"
      id="rect1"
-     x="0.95674664"
+     x="3.452436"
      y="4.4467015"
-     style="stroke-width:0.95347" />
+     style="stroke-width:0.918682" />
   <!-- Waveform -->
   <g
      stroke="#00d4ff"
@@ -51,7 +51,7 @@
      transform="matrix(1.2119138,0,0,1.2119138,-10,-8.0868339)">
     <!-- Digital waveform pattern -->
     <path
-       d="M 30,55 V 25 H 44 V 55 H 62 V 25 h 26 v 30 h 16 V 25 h 18 v 30 h 20 V 25 h 12 v 30 h 10"
+       d="M 30,55 V 25 H 44 V 55 H 55.39887 V 25 H 81.398871 V 55 H 94.098306 V 25 h 13.049154 v 30 h 15.04915 V 25 h 15.30056 v 30 h 11.65029"
        id="path1"
        sodipodi:nodetypes="ccccccccccccccccc" />
   </g>
@@ -61,7 +61,7 @@
      stroke="#ff6b6b"
      stroke-width="2"
      id="g2"
-     transform="matrix(1.0099282,0,0,1.0099282,1.956866,0.1747211)">
+     transform="matrix(1.0099282,0,0,1.0099282,-22.043134,2.1747211)">
     <path
        d="m 200,40 h 30 m -8,-8 10,8 -10,8"
        stroke-linecap="round"
@@ -74,7 +74,7 @@
      stroke-width="2"
      fill="none"
      id="g4"
-     transform="matrix(1.2119138,0,0,1.2119138,-38.238278,-8.0868339)">
+     transform="matrix(1.2119138,0,0,1.2119138,-62.238278,-8.0868339)">
     <rect
        x="245"
        y="15"
@@ -109,7 +109,7 @@
   </g>
   <!-- Text -->
   <text
-     x="337.45502"
+     x="313.45502"
      y="34.330151"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="16.9669px"
@@ -118,7 +118,7 @@
      id="text4"
      style="stroke-width:1.2119">VCD</text>
   <text
-     x="337.45502"
+     x="313.45502"
      y="54.932686"
      font-family="'Segoe UI', Arial, sans-serif"
      font-size="13.331px"
@@ -141,6 +141,6 @@
      id="rect3"
      width="1.1158235"
      height="16.320883"
-     x="225.15314"
-     y="32.399704" />
+     x="201.15314"
+     y="34.399704" />
 </svg>
