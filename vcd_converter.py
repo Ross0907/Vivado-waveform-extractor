@@ -244,8 +244,43 @@ def export_json(signals, rows, output_file, metadata, time_unit='us', value_fmt=
     return len(rows)
 
 
+def get_numeric_value(binary_str, fmt):
+    """Convert binary string to numeric value for Excel (returns int or None for non-numeric)."""
+    if 'x' in binary_str.lower() or 'z' in binary_str.lower():
+        return None  # Can't convert unknown/high-z to number
+    
+    try:
+        bits = len(binary_str)
+        unsigned_val = int(binary_str, 2)
+        
+        if fmt == 'int':
+            return unsigned_val
+        
+        elif fmt == 'signed':
+            # Two's complement signed
+            if binary_str[0] == '1':
+                return unsigned_val - (1 << bits)
+            return unsigned_val
+        
+        elif fmt == 'smag':
+            # Signed magnitude
+            if bits == 1:
+                return unsigned_val
+            sign = binary_str[0]
+            magnitude = int(binary_str[1:], 2) if len(binary_str) > 1 else 0
+            return -magnitude if sign == '1' else magnitude
+        
+        return None  # hex/bin stay as text
+    except ValueError:
+        return None
+
+
 def export_excel(signals, rows, output_file, time_unit='us', value_fmt='hex'):
-    """Export to Excel format. Auto-installs openpyxl if needed."""
+    """Export to Excel format. Auto-installs openpyxl if needed.
+    
+    Numeric formats (int, signed, smag) are written as actual numbers for easy graphing.
+    Hex and binary formats remain as text to preserve formatting.
+    """
     
     try:
         import openpyxl  # type: ignore
@@ -278,11 +313,25 @@ def export_excel(signals, rows, output_file, time_unit='us', value_fmt='hex'):
         cell.font = header_font
         cell.fill = header_fill
     
+    # Check if format supports numeric values
+    numeric_formats = ('int', 'signed', 'smag')
+    
     # Data
     for row_num, (t, values) in enumerate(rows, 2):
         ws.cell(row=row_num, column=1, value=t / divisor)
         for col, vid in enumerate(sorted(signals.keys()), 2):
-            ws.cell(row=row_num, column=col, value=format_value(values[vid], value_fmt))
+            binary_str = values[vid]
+            if value_fmt in numeric_formats:
+                # Write as actual number for graphing
+                num_val = get_numeric_value(binary_str, value_fmt)
+                if num_val is not None:
+                    ws.cell(row=row_num, column=col, value=num_val)
+                else:
+                    # Fallback to text for x/z values
+                    ws.cell(row=row_num, column=col, value=format_value(binary_str, value_fmt))
+            else:
+                # hex/bin stay as text
+                ws.cell(row=row_num, column=col, value=format_value(binary_str, value_fmt))
     
     # Auto-width columns
     for col in ws.columns:
@@ -320,6 +369,12 @@ class ConverterGUI:
         self.time_unit = tk.StringVar(value='us')
         
         self.build_ui()
+        
+        # Auto-load waveform.vcd if it exists
+        default_vcd = VCD_INPUT_DIR / "waveform.vcd"
+        if default_vcd.exists():
+            self.vcd_file.set(str(default_vcd))
+            self.update_output_ext()
     
     def build_ui(self):
         # Configure style

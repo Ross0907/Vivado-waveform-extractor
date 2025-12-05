@@ -2,19 +2,27 @@
 
 Extract simulation waveform data from Xilinx Vivado XSim to VCD, CSV, JSON, or Excel formats.
 
-![VCD Converter GUI](images/gui_screenshot.png)
-
 ## Quick Start
-To generate the VCD, In Vivado : `Tools` → `Run Tcl Script` → `select extract_waveform.tcl` (while the simulation window is open) 
+
+### 1. Generate VCD from Vivado
+
+In Vivado: `Tools` → `Run Tcl Script` → select `extract_waveform.tcl` (while simulation window is open)
+
 ```tcl
 capture "all"          # For testbench (runs until $finish)
 capture "100us"        # For manual testing
 ```
-To convert VCD to other formats:
+
+The VCD file is saved to `vcd_output/` next to the script.
+
+### 2. Convert VCD to Other Formats (Optional)
+
 ```bash
 python vcd_converter.py                      # GUI
 python vcd_converter.py waveform.vcd --json  # CLI
 ```
+
+![VCD Converter GUI](images/gui_screenshot.png)
 
 ## Requirements
 
@@ -64,6 +72,8 @@ python vcd_converter.py <input.vcd> [-o output] [--csv|--json|--excel] [--hex|--
 | `--smag` | Values as signed magnitude |
 | `--bin` | Values as binary strings |
 | `--us/--ns/--ps` | Time unit (default: us) |
+
+> **Excel Graphing Tip:** Use `--int`, `--signed`, or `--smag` for Excel export if you want to create graphs. These formats store actual numbers. Hex and binary are stored as text (to preserve formatting like leading zeros) and cannot be graphed directly.
 
 ---
 
