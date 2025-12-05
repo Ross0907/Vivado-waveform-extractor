@@ -3,7 +3,7 @@
 Extract simulation waveform data from Xilinx Vivado XSim to VCD, CSV, JSON, or Excel formats.
 
 ## Quick Start
-To generate the VCD, In Vivado(while simulation window is open): Tools → Run Tcl Script → select extract_waveform.tcl
+To generate the VCD, In Vivado : Tools → Run Tcl Script → select extract_waveform.tcl (while the simulation window is open) 
 ```tcl
 capture "all"          # For testbench (runs until $finish)
 capture "100us"        # For manual testing
