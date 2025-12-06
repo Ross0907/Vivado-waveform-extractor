@@ -1,3 +1,4 @@
+![logo](images/logo.svg)
   <img src="images/logo.svg" alt="Logo" width="800">
 
 # Vivado Waveform Extractor
