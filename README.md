@@ -30,7 +30,7 @@ The VCD file is saved to `vcd_output/` next to the script.
 python vcd_converter.py                      # GUI
 python vcd_converter.py waveform.vcd --json  # CLI
 ```
-## GUI
+## Converter GUI
 
 ![VCD Converter GUI](images/gui_screenshot.png)
 
