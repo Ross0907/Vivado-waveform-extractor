@@ -285,11 +285,11 @@ def format_value(binary_str, fmt):
 
 ## Troubleshooting
 
-**No signals in VCD:** Run simulation at least once before loading the script. The design must be elaborated.
+- **No signals in VCD:** Run simulation at least once before loading the script. The design must be elaborated.
 
-**Empty VCD file:** Ensure simulation ran (`capture` prints end time). Check write permissions.
+- **Empty VCD file:** Ensure simulation ran (`capture` prints end time). Check write permissions.
 
-**Forces not applied:** Signal paths must be exact. Use `signals` to see available paths. Format: `/testbench/instance/signal`
+- **Forces not applied:** Signal paths must be exact. Use `signals` to see available paths. Format: `/testbench/instance/signal`
 
 **Excel export fails:** Install openpyxl: `pip install openpyxl`
 ## TODO's
