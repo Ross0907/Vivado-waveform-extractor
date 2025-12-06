@@ -6,7 +6,7 @@
 # Usage:
 #   1. Run simulation in Vivado
 #   2. Tools -> Run Tcl Script -> select this file
-#   3. Use capture command (see below)
+#   3. Use capture command OR just use normal run commands (auto-logging)
 #
 # Author: Ross
 # License: MIT
@@ -16,6 +16,11 @@
 set ::script_dir [file dirname [info script]]
 set ::output_dir [file join $::script_dir "vcd_output"]
 set ::force_commands {}
+
+# Auto-logging state
+set ::auto_log_enabled 1
+set ::vcd_is_open 0
+set ::auto_log_file "waveform.vcd"
 
 # Ensure output directory exists
 proc ensure_output_dir {} {
@@ -75,6 +80,73 @@ proc replay_forces {} {
         lassign $f sig radix val
         catch {add_force $sig -radix $radix [list $val 0ns]}
     }
+}
+
+# ----- Auto-Logging (hooks into run command) -----
+
+# Start auto-logging VCD
+proc start_auto_log {{filename ""}} {
+    if {$::vcd_is_open} {
+        return
+    }
+    if {$filename eq ""} {
+        set filename $::auto_log_file
+    }
+    set vcd_path [outpath $filename]
+    if {[catch {open_vcd $vcd_path} err]} {
+        puts "Auto-log error: $err"
+        return
+    }
+    catch {log_vcd *}
+    set ::vcd_is_open 1
+    puts "Auto-logging to: $vcd_path"
+}
+
+# Stop auto-logging VCD
+proc stop_auto_log {} {
+    if {$::vcd_is_open} {
+        catch {close_vcd}
+        set ::vcd_is_open 0
+        puts "Auto-log saved: [outpath $::auto_log_file]"
+    }
+}
+
+# Enable/disable auto-logging
+proc autolog {{state ""}} {
+    if {$state eq ""} {
+        if {$::auto_log_enabled} {
+            puts "Auto-logging: ON"
+        } else {
+            puts "Auto-logging: OFF"
+        }
+        return
+    }
+    if {$state eq "on" || $state eq "1"} {
+        set ::auto_log_enabled 1
+        puts "Auto-logging enabled"
+    } elseif {$state eq "off" || $state eq "0"} {
+        set ::auto_log_enabled 0
+        stop_auto_log
+        puts "Auto-logging disabled"
+    }
+}
+
+# Override the run command to auto-start VCD logging
+rename run _original_run
+proc run {args} {
+    # Start auto-logging if enabled and not already open
+    if {$::auto_log_enabled && !$::vcd_is_open} {
+        start_auto_log
+    }
+    # Call original run command
+    uplevel 1 _original_run $args
+}
+
+# Override restart to close VCD first
+rename restart _original_restart
+proc restart {args} {
+    stop_auto_log
+    uplevel 1 _original_restart $args
 }
 
 # ----- Main Capture Function -----
@@ -175,6 +247,12 @@ proc help {} {
     puts "  show_forces              - list recorded forces"
     puts "  clear_forces             - clear all forces"
     puts ""
+    puts "Auto-logging (captures on every 'run' command):"
+    puts "  autolog                  - show auto-log status"
+    puts "  autolog on               - enable auto-logging"
+    puts "  autolog off              - disable auto-logging"
+    puts "  stop_auto_log            - save and close current VCD"
+    puts ""
     puts "Utility:"
     puts "  signals                  - list all signals"
     puts "  snapshot                 - save current values to CSV"
@@ -184,5 +262,7 @@ proc help {} {
 
 # ----- Startup -----
 puts ""
-puts "Waveform Extractor loaded. Type 'help' for commands."
+puts "Waveform Extractor loaded. Auto-logging ON."
+puts "VCD will be saved automatically when you use 'run' commands."
+puts "Type 'help' for all commands."
 puts ""

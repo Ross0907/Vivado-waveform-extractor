@@ -10,6 +10,13 @@ Extract simulation waveform data from Xilinx Vivado XSim to VCD, CSV, JSON, or E
 
 In Vivado: `Tools` → `Run Tcl Script` → select `extract_waveform.tcl` (while simulation window is open)
 
+**Auto-logging (recommended):** Just use normal `run` commands - VCD captures automatically!
+```tcl
+run 100us              # Auto-logs to waveform.vcd
+run -all               # Works with testbenches too
+```
+
+**Manual capture:** For more control (restarts simulation, applies forces)
 ```tcl
 capture "all"          # For testbench (runs until $finish)
 capture "100us"        # For manual testing
@@ -51,8 +58,11 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 | Command | Description |
 |---------|-------------|
+| `run <time>` | Run simulation (auto-logs VCD) |
 | `capture "time"` | Restart, apply forces, run, save VCD |
 | `capture "all"` | Run until testbench `$finish` |
+| `autolog on/off` | Enable/disable auto-logging |
+| `stop_auto_log` | Save and close current VCD |
 | `force /path hex FF` | Force signal (remembered across restarts) |
 | `show_forces` | List recorded forces |
 | `clear_forces` | Clear all forces |
