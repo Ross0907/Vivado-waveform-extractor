@@ -1,4 +1,4 @@
-  <img src="images/logo.svg" alt="Logo" width="800">
+<img src="images/logo.svg" alt="Logo" width="1000">
 
 # Vivado Waveform Extractor
 
@@ -58,8 +58,7 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 | Command | Description |
 |---------|-------------|
-| `run <time>` | Run simulation (auto-logs VCD) |
-| `capture "time"` | Restart, apply forces, run, save VCD |
+| `capture "<time>"` | Restart, apply forces, run for `<time>` duration save VCD |
 | `capture "all"` | Run until testbench `$finish` |
 | `autolog on/off` | Enable/disable auto-logging |
 | `stop_auto_log` | Save and close current VCD |
@@ -100,7 +99,7 @@ VCD is event-driven: it only records timestamps when signals *change*, making it
 
 ### How the Tcl Script Works
 
-The script leverages three undocumented/lesser-known XSim Tcl commands:
+The script leverages three XSim Tcl commands:
 
 #### 1. `open_vcd <filename>`
 Opens a VCD file for writing. XSim will write the VCD header (date, version, timescale, signal declarations) immediately.
@@ -295,13 +294,18 @@ def format_value(binary_str, fmt):
 
 ## Troubleshooting
 
-**No signals in VCD:** Run simulation at least once before loading the script. The design must be elaborated.
+- **No signals in VCD:** Run simulation at least once before loading the script. The design must be elaborated.
 
-**Empty VCD file:** Ensure simulation ran (`capture` prints end time). Check write permissions.
+- **Empty VCD file:** Ensure simulation ran (`capture` prints end time). Check write permissions.
 
-**Forces not applied:** Signal paths must be exact. Use `signals` to see available paths. Format: `/testbench/instance/signal`
+- **Forces not applied:** Signal paths must be exact. Use `signals` to see available paths. Format: `/testbench/instance/signal`
 
-**Excel export fails:** Install openpyxl: `pip install openpyxl`
+- **Excel export fails:** Install openpyxl: `pip install openpyxl`
+## TODO's
+
+- Invoke script when the run "kns" command is invoked by simulation button press, replacing the need of special capture command.
+
+- cleanup code.
 
 ## License
 
