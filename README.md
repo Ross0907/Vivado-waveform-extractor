@@ -291,7 +291,7 @@ def format_value(binary_str, fmt):
 
 - **Forces not applied:** Signal paths must be exact. Use `signals` to see available paths. Format: `/testbench/instance/signal`
 
-**Excel export fails:** Install openpyxl: `pip install openpyxl`
+- **Excel export fails:** Install openpyxl: `pip install openpyxl`
 ## TODO's
 
 - Invoke script when the run "kns" command is invoked by simulation button press, replacing the need of special capture command.
