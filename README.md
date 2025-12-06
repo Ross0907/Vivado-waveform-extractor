@@ -294,9 +294,9 @@ def format_value(binary_str, fmt):
 **Excel export fails:** Install openpyxl: `pip install openpyxl`
 ## TODO's
 
-1.Invoke script when the run "kns" command is invoked by simulation button press, replacing the need of spscial capture command
+- Invoke script when the run "kns" command is invoked by simulation button press, replacing the need of special capture command.
 
-2.clesnup code
+- cleanup code.
 
 ## License
 
