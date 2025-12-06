@@ -102,7 +102,7 @@ The script uses three XSim commands:
 - `log_vcd *` - Registers all signals for logging (must be called *before* running)
 - `close_vcd` - Finalizes the file
 
-**Auto-logging** hooks into the `run` command to start VCD capture automatically. The `capture` command provides more control: it restarts simulation, reapplies any forces, then captures.
+**Auto-logging** overrides the built-in `run` command. When you type `run 100us`, it automatically opens a VCD file, logs all signals, runs the simulation, then saves when you call `stop_auto_log` or `restart`. The `capture` command provides more control: it restarts simulation, reapplies any saved forces, then captures to a clean file.
 
 ### VCD Format
 
@@ -121,7 +121,7 @@ The converter parses VCD in two passes:
 1. **Header** - Extract signal declarations (name, width, ID mapping)
 2. **Values** - Track changes over time, build complete timeline
 
-Since VCD only records *changes*, the converter maintains current state and outputs complete snapshots at each timestamp.
+Since VCD only records *changes*, the converter maintains current state and outputs complete snapshots at each timestamp. Values containing `x` (unknown) or `z` (high-impedance) are preserved as-is in the output.
 
 ---
 
