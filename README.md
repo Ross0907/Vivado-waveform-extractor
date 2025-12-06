@@ -51,7 +51,7 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 | Command | Description |
 |---------|-------------|
-| `capture "<time>"` | Restart, apply forces, run for <time> duration save VCD |
+| `capture "<time>"` | Restart, apply forces, run for `<time>` duration save VCD |
 | `capture "all"` | Run until testbench `$finish` |
 | `force /path hex FF` | Force signal (remembered across restarts) |
 | `show_forces` | List recorded forces |
