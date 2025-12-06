@@ -90,7 +90,7 @@ VCD is event-driven: it only records timestamps when signals *change*, making it
 
 ### How the Tcl Script Works
 
-The script leverages three undocumented/lesser-known XSim Tcl commands:
+The script leverages three XSim Tcl commands:
 
 #### 1. `open_vcd <filename>`
 Opens a VCD file for writing. XSim will write the VCD header (date, version, timescale, signal declarations) immediately.
