@@ -1,27 +1,7 @@
 """
-VCD Waveform Converter
-
-Converts Vivado VCD files to CSV, JSON, or Excel formats.
-Run with --gui for graphical interface, or use command line.
-
-Usage:
-    python vcd_converter.py                     # Launch GUI
-    python vcd_converter.py input.vcd           # Convert to CSV
-    python vcd_converter.py input.vcd -o out.json --json
-    python vcd_converter.py input.vcd --excel
-
-Options:
-    --csv      Output as CSV (default)
-    --json     Output as JSON
-    --excel    Output as Excel (.xlsx)
-    --hex      Values in hex (default)
-    --int      Values as unsigned integers
-    --signed   Values as signed (two's complement)
-    --smag     Values as signed magnitude
-    --bin      Values in binary
-    --us       Time in microseconds (default)
-    --ns       Time in nanoseconds
-    --gui      Launch GUI
+VCD Waveform Converter - Converts VCD to CSV, JSON, or Excel.
+Usage: python vcd_converter.py [input.vcd] [options]
+Options: --csv/--json/--excel, --hex/--int/--signed/--smag/--bin, --us/--ns/--ps
 """
 
 import sys
@@ -29,12 +9,10 @@ import re
 import json
 from pathlib import Path
 
-# Output folder in script directory
 SCRIPT_DIR = Path(__file__).parent.resolve()
 VCD_INPUT_DIR = SCRIPT_DIR / "vcd_output"
 OUTPUT_DIR = SCRIPT_DIR / "converted_output"
 
-# Check for optional dependencies
 try:
     import tkinter as tk
     from tkinter import ttk, filedialog, messagebox
@@ -49,7 +27,6 @@ except ImportError:
 
 def parse_vcd(filename):
     """Parse VCD file. Returns (signals, changes, metadata)."""
-    
     with open(filename, 'r') as f:
         content = f.read()
     
@@ -130,20 +107,9 @@ def build_timeline(signals, changes):
 # ============================================================
 
 def format_value(binary_str, fmt='hex', width=None):
-    """
-    Format binary string to various formats.
-    
-    Formats:
-        hex     - Hexadecimal (unsigned)
-        int     - Unsigned integer
-        signed  - Signed two's complement
-        smag    - Signed magnitude (MSB is sign bit)
-        bin     - Binary string
-    """
+    """Format binary string to hex/int/signed/smag/bin."""
     if fmt == 'bin':
         return binary_str
-    
-    # Handle unknown/high-z values
     if 'x' in binary_str.lower() or 'z' in binary_str.lower():
         return binary_str
     
@@ -153,29 +119,17 @@ def format_value(binary_str, fmt='hex', width=None):
         
         if fmt == 'hex':
             return format(unsigned_val, 'X')
-        
         elif fmt == 'int':
-            # Unsigned integer
             return str(unsigned_val)
-        
         elif fmt == 'signed':
-            # Two's complement signed
-            if binary_str[0] == '1':  # Negative (MSB is 1)
-                signed_val = unsigned_val - (1 << bits)
-            else:
-                signed_val = unsigned_val
-            return str(signed_val)
-        
+            if binary_str[0] == '1':
+                return str(unsigned_val - (1 << bits))
+            return str(unsigned_val)
         elif fmt == 'smag':
-            # Signed magnitude (MSB is sign, rest is magnitude)
             if bits == 1:
-                return str(unsigned_val)  # Single bit, no sign
-            sign = binary_str[0]
+                return str(unsigned_val)
             magnitude = int(binary_str[1:], 2) if len(binary_str) > 1 else 0
-            if sign == '1':
-                return str(-magnitude)
-            return str(magnitude)
-        
+            return str(-magnitude) if binary_str[0] == '1' else str(magnitude)
         return str(unsigned_val)
     except ValueError:
         return binary_str
@@ -245,47 +199,33 @@ def export_json(signals, rows, output_file, metadata, time_unit='us', value_fmt=
 
 
 def get_numeric_value(binary_str, fmt):
-    """Convert binary string to numeric value for Excel (returns int or None for non-numeric)."""
-    if 'x' in binary_str.lower() or 'z' in binary_str.lower():
-        return None  # Can't convert unknown/high-z to number
+    """Convert binary to numeric value for Excel. Returns int or None for hex/bin/unknown."""
+    if fmt not in ('int', 'signed', 'smag') or 'x' in binary_str.lower() or 'z' in binary_str.lower():
+        return None
     
     try:
         bits = len(binary_str)
-        unsigned_val = int(binary_str, 2)
+        val = int(binary_str, 2)
         
         if fmt == 'int':
-            return unsigned_val
-        
+            return val
         elif fmt == 'signed':
-            # Two's complement signed
-            if binary_str[0] == '1':
-                return unsigned_val - (1 << bits)
-            return unsigned_val
-        
+            return val - (1 << bits) if binary_str[0] == '1' else val
         elif fmt == 'smag':
-            # Signed magnitude
             if bits == 1:
-                return unsigned_val
-            sign = binary_str[0]
-            magnitude = int(binary_str[1:], 2) if len(binary_str) > 1 else 0
-            return -magnitude if sign == '1' else magnitude
-        
-        return None  # hex/bin stay as text
+                return val
+            mag = int(binary_str[1:], 2) if len(binary_str) > 1 else 0
+            return -mag if binary_str[0] == '1' else mag
     except ValueError:
         return None
 
 
 def export_excel(signals, rows, output_file, time_unit='us', value_fmt='hex'):
-    """Export to Excel format. Auto-installs openpyxl if needed.
-    
-    Numeric formats (int, signed, smag) are written as actual numbers for easy graphing.
-    Hex and binary formats remain as text to preserve formatting.
-    """
+    """Export to Excel. Numeric formats (int/signed/smag) stored as numbers for graphing."""
     
     try:
         import openpyxl  # type: ignore
     except ImportError:
-        # Auto-install openpyxl
         print("openpyxl not found. Installing automatically...")
         import subprocess
         try:
@@ -313,25 +253,13 @@ def export_excel(signals, rows, output_file, time_unit='us', value_fmt='hex'):
         cell.font = header_font
         cell.fill = header_fill
     
-    # Check if format supports numeric values
-    numeric_formats = ('int', 'signed', 'smag')
-    
     # Data
     for row_num, (t, values) in enumerate(rows, 2):
         ws.cell(row=row_num, column=1, value=t / divisor)
         for col, vid in enumerate(sorted(signals.keys()), 2):
             binary_str = values[vid]
-            if value_fmt in numeric_formats:
-                # Write as actual number for graphing
-                num_val = get_numeric_value(binary_str, value_fmt)
-                if num_val is not None:
-                    ws.cell(row=row_num, column=col, value=num_val)
-                else:
-                    # Fallback to text for x/z values
-                    ws.cell(row=row_num, column=col, value=format_value(binary_str, value_fmt))
-            else:
-                # hex/bin stay as text
-                ws.cell(row=row_num, column=col, value=format_value(binary_str, value_fmt))
+            num_val = get_numeric_value(binary_str, value_fmt)
+            ws.cell(row=row_num, column=col, value=num_val if num_val is not None else format_value(binary_str, value_fmt))
     
     # Auto-width columns
     for col in ws.columns:
