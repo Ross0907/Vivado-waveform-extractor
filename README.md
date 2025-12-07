@@ -32,7 +32,7 @@ python vcd_converter.py waveform.vcd --json  # CLI
 ```
 ## Converter GUI
 
-![VCD Converter GUI](images/gui_screenshot.png)
+![VCD Converter GUI](images/gui.png)
 
 ## Signal Selection
 
