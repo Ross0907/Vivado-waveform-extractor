@@ -34,6 +34,12 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 ![VCD Converter GUI](images/gui_screenshot.png)
 
+## Signal Selection
+
+![Signal Selection Dialog](images/signal_selection.png)
+
+Click **"Select Signals..."** to choose which signals to include in the export. This is useful for excluding internal/temporary signals from sub-modules. The dialog shows full hierarchical paths (e.g., `testBench.uut.f1.carry`) so you can easily identify signals from different module instances.
+
 ## Requirements
 
 **Tcl Script:** Xilinx Vivado 2020.x+ with active XSim simulation
