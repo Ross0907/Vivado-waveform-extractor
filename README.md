@@ -36,7 +36,7 @@ python vcd_converter.py waveform.vcd --json  # CLI
 
 ## Signal Selection
 
-![Signal Selection Dialog](images/signal_selection.png)
+<img src="images/signal_selection.png" alt="Signal Selection Dialog" width="350">
 
 Click **"Select Signals..."** to choose which signals to include in the export. This is useful for excluding internal/temporary signals from sub-modules. The dialog shows full hierarchical paths (e.g., `testBench.uut.f1.carry`) so you can easily identify signals from different module instances.
 
