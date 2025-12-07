@@ -71,7 +71,7 @@ python vcd_converter.py waveform.vcd --json  # CLI
 ### Python CLI
 
 ```
-python vcd_converter.py <input.vcd> [-o output] [--csv|--json|--excel] [--hex|--int|--signed|--smag|--bin] [--us|--ns|--ps]
+python vcd_converter.py <input.vcd> [-o output] [--csv|--json|--excel] [--hex|--int|--signed|--smag|--bin] [--us|--ns|--ps] [--signals] [--include <pattern>] [--exclude <pattern>]
 ```
 
 | Option | Description |
@@ -84,6 +84,24 @@ python vcd_converter.py <input.vcd> [-o output] [--csv|--json|--excel] [--hex|--
 | `--smag` | Values as signed magnitude |
 | `--bin` | Values as binary strings |
 | `--us/--ns/--ps` | Time unit (default: us) |
+| `--signals` | List available signals and exit |
+| `--include <pattern>` | Include only signals matching pattern (glob-style, repeatable) |
+| `--exclude <pattern>` | Exclude signals matching pattern (glob-style, repeatable) |
+
+**Signal Filtering Examples:**
+```bash
+# List all signals in a VCD file
+python vcd_converter.py waveform.vcd --signals
+
+# Export only top-level testbench signals (exclude sub-modules)
+python vcd_converter.py waveform.vcd --include "testBench.*" --exclude "testBench.uut.*"
+
+# Exclude internal full-adder signals
+python vcd_converter.py waveform.vcd --exclude "*.f1.*" --exclude "*.f2.*" --exclude "*.f3.*" --exclude "*.f4.*"
+
+# Include only specific signals
+python vcd_converter.py waveform.vcd --include "*SumDiff*" --include "*Carry*"
+```
 
 > **Excel Graphing Tip:** Use `--int`, `--signed`, or `--smag` for Excel export if you want to create graphs. These formats store actual numbers. Hex and binary are stored as text (to preserve formatting like leading zeros) and cannot be graphed directly.
 
@@ -118,10 +136,16 @@ b00000001 "                   ← data = 1
 ### Python Converter
 
 The converter parses VCD in two passes:
-1. **Header** - Extract signal declarations (name, width, ID mapping)
+1. **Header** - Extract signal declarations with full hierarchical paths (e.g., `testBench.uut.f1.carry`)
 2. **Values** - Track changes over time, build complete timeline
 
+**Hierarchical Signal Names:** Signals are stored with their full module path, making it easy to identify signals from different instances. For example, if your design has multiple full-adders, you'll see `testBench.uut.f1.a`, `testBench.uut.f2.a`, etc. instead of just `a` repeated.
+
+**Signal Aliasing:** VCD files share IDs for electrically connected signals. The converter handles this correctly, showing all signal names even when they share the same underlying net (e.g., `testBench.CarryBorrow` and `testBench.uut.f4.carry` may be the same signal).
+
 Since VCD only records *changes*, the converter maintains current state and outputs complete snapshots at each timestamp. Values containing `x` (unknown) or `z` (high-impedance) are preserved as-is in the output.
+
+**Signal Filtering:** Use `--include` / `--exclude` patterns (CLI) or the "Select Signals" button (GUI) to export only the signals you need, excluding internal/temporary signals.
 
 ---
 
